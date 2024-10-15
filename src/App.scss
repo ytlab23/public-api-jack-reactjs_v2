@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+//   
+body {
+  background: #eee;
+  color:#212529;
+}
+//
+@font-face {
+    font-family: 'MyFont';
+    src: local('MyFont'), url(./NunitoSans.ttf) format('ttf');
+}
+// 
+small{
+  color:#4e4e4e;
+  font-size: 0.6rem;
+}
+
+th, td{
+  padding:6px;
+  color:#333;
+  text-align: center;
+  font-weight: 400;
+}
+td{
+  border-left: 1px solid #eae0ca;
+  border-top: 1px solid #eae0ca;
+}
+td:first-child{
+  border-left: 0;
+}
+tr:first-child{
+  border-left: 0;
+}
+th{
+  background-image:-webkit-linear-gradient(top,#fff,#e2d9c7);
+  color:#000;
+  font-weight: bold;
+}
+tr:nth-child(even) td{
+  background-color: #f9f9f9;
+}
+
+h2{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+p{
+  margin: 1rem 0;
+}
