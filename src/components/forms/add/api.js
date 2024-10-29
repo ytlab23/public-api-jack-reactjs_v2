@@ -24,6 +24,7 @@ export default () =>
     // 
     const onSubmit = (data) => 
     {
+        if(!image_uploaded) return alert('Please upload Logo');
         dispatch.models.SET({
             apiAddLoading: true,
             isUploaded: false
@@ -55,11 +56,13 @@ export default () =>
                         error={errors.title}
                         label="Title"
                         {...register('title', {required:true})}
+                        required
                     />
                     <TextField
                         error={errors.title}
                         label="External Link"
                         {...register('external', {required:true})}
+                        required
                     />
 
                     {Object.keys(pre).map(k=>(
@@ -72,6 +75,7 @@ export default () =>
                                 value={getValues(k) || ''}
                                 label={pre[k][0]}
                                 onChange={event=>setValue(k, event.target.value, { shouldValidate: true })}
+                                required
                             >
                                 <MenuItem value="">
                                     <em>-Select {pre[k][0]}-</em>
@@ -89,6 +93,7 @@ export default () =>
                             labelId="demo-multiple-chip-label-category"
                             id="demo-multiple-chip-category"
                             multiple
+                            required
                             {...register('category', {required:true})}
                             value={getValues('category') || []}
                             onChange={event=>setValue('category', event.target.value, { shouldValidate: true })}
@@ -119,6 +124,7 @@ export default () =>
                             labelId="demo-multiple-chip-label-type"
                             id="demo-multiple-chip-type"
                             multiple
+                            required
                             {...register('type', {required:true})}
                             value={getValues('type') || []}
                             onChange={event=>setValue('type', event.target.value, { shouldValidate: true })}
@@ -147,6 +153,7 @@ export default () =>
                         <TextField
                             key={k}
                             placeholder={k=='calls' ? 'Default: Unlimited': ''}
+                            required
                             label={finance[k][0]}
                             {...register(k, {required:false})}
                             error={errors[k]}
@@ -159,6 +166,7 @@ export default () =>
                         id="outlined-textarea"
                         label="Description"
                         fullWidth
+                        required
                         multiline
                         rows={10}
                         error={errors['description']}
@@ -172,6 +180,7 @@ export default () =>
                             multiple
                             {...register('tags', {required:true})}
                             value={getValues('tags') || []}
+                            required
                             onChange={event=>setValue('tags', event.target.value, { shouldValidate: true })}
                             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                             renderValue={(selected) => (

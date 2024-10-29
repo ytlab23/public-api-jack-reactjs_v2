@@ -62,12 +62,14 @@ export default props =>
                         label="Title"
                         defaultValue={getValues('title') || title}
                         {...register('title', { required:true })}
+                        required
                     />
                     <TextField
                         error={errors.title}
                         label="External Link"
                         defaultValue={getValues('external') || external}
                         {...register('external', {required:true})}
+                        required
                     />
 
                     {Object.keys(pre).map(k=>(
@@ -97,6 +99,7 @@ export default props =>
                             labelId="demo-multiple-chip-label-category"
                             id="demo-multiple-chip-category"
                             multiple
+                            required
                             {...register('category', {required:true})}
                             value={getValues('category') || JSON.parse(category) || []}
                             onChange={event=>setValue('category', event.target.value, { shouldValidate: true })}
@@ -127,6 +130,7 @@ export default props =>
                             labelId="demo-multiple-chip-label-type"
                             id="demo-multiple-chip-type"
                             multiple
+                            required
                             {...register('type', {required:true})}
                             value={getValues('type') || JSON.parse(type) || []}
                             onChange={event=>setValue('type', event.target.value, { shouldValidate: true })}
@@ -159,7 +163,6 @@ export default props =>
                             {...register(k, {required:false})}
                             defaultValue={getValues(k) || finance[k][1]}
                             error={errors[k]}
-                            type="number"
                         />
                     ))}
 
