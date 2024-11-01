@@ -9,8 +9,7 @@ import PageLoading from 'components/Loading';
 import Modal from 'components/Modal';
 // 
 import { asfetch } from 'utils/asfetch';
-import {Cloudinary} from "@cloudinary/url-gen";
-import { WidgetLoader } from 'react-cloudinary-upload-widget'
+import { Cloudinary } from "@cloudinary/url-gen";
 //  
 export default () =>
 {
@@ -26,6 +25,7 @@ export default () =>
   });
   // 
   useEffect(()=>{
+
     const getData = async() =>
     {
       let {url, sign, key} = await asfetch();
@@ -33,9 +33,31 @@ export default () =>
       let wss = new WebSocket('wss://'+url+'/w'+sign);
       wss.binaryType = 'arraybuffer';
       wss.ikey = key;
+      // 
+      const widget = window.cloudinary.createUploadWidget(
+        {
+          cloudName: 'ddv2aeipa',
+          uploadPreset: 'public_api',
+          sources: ['local', 'url'],
+          cropping: false,
+          multiple: false
+        },
+        (error, result) => {
+          if(!error && result&&result.event=='success'){
+            dispatch.models.SET({ 
+                image_uploaded: result.event, 
+                image_name: result.info.public_id + '.' + (result.info.original_extension || result.info.format),
+                isUploaded: true
+            })
+          widget.close();
+          }
+        }
+      );
+      // 
       dispatch.models.SET({
         wss: wss,
-        cld
+        cld,
+        widget
       })
     }
     getData()
@@ -59,7 +81,6 @@ export default () =>
   }, [A]);
   // 
   return <>
-    <WidgetLoader />
     <Suspense fallback={<PageLoading />}>
       <Routes />
     </Suspense>

@@ -6,7 +6,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useTheme } from '@mui/material/styles';
 import { useForm } from "react-hook-form";
 import { getStyles } from 'utils/styles';
-import { Widget } from 'react-cloudinary-upload-widget'
+import CloudinaryUploadWidget from "utils/uploadWidget.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { SEND } from 'store'
 // 
@@ -208,23 +208,7 @@ export default props =>
                         </Select>
                     </FormControl>
                     <div>
-                        <Widget
-                            uploadPreset='public_api'
-                            cloudName='ddv2aeipa'
-                            cropping={false}
-                            sources={['local', 'url'] }
-                            onSuccess={(result) => 
-                            {
-                                if(result&&result.event=='success'){
-                                    dispatch.models.SET({ 
-                                        image_uploaded: result.url, 
-                                        image_name: result.info.public_id + '.' + (result.info.original_extension || result.info.format),
-                                        isUploaded: true
-                                    })
-                                }
-                            }}
-                        >
-                        </Widget>
+                    <CloudinaryUploadWidget />
                     </div>
                     <div>
                         <AdvancedImage 
