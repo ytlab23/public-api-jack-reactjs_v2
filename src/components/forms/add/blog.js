@@ -7,7 +7,7 @@ import JoditEditor from 'jodit-react';
 import { getStyles } from 'utils/styles';
 import { useForm } from "react-hook-form";
 import { useTheme } from '@mui/material/styles';
-import { Widget } from 'react-cloudinary-upload-widget'
+import CloudinaryUploadWidget from "utils/uploadWidget.js";
 import { SEND } from 'store'
 // 
 export default () => 
@@ -79,23 +79,7 @@ export default () =>
                     </FormControl>
                 </div>
                 <div className='col-span-2'>
-                    <Widget
-                            uploadPreset='public_api'
-                            cloudName='ddv2aeipa'
-                            cropping={false}
-                            sources={['local', 'url'] }
-                            onSuccess={(result) => 
-                            {
-                                if(result&&result.event=='success'){
-                                    dispatch.models.SET({ 
-                                        image_uploaded: result.url, 
-                                        image_name: result.info.public_id + '.' + (result.info.original_extension || result.info.format),
-                                        isUploaded: true
-                                    })
-                                }
-                            }}
-                        >
-                    </Widget>
+                    <CloudinaryUploadWidget />
                 </div>
                 <div className='col-span-1 col-start-12'>
                     <LoadingButton 

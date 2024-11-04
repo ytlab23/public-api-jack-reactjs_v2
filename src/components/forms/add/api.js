@@ -6,7 +6,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useTheme } from '@mui/material/styles';
 import { getStyles } from 'utils/styles';
 import { useForm } from "react-hook-form";
-import { Widget } from 'react-cloudinary-upload-widget'
+import CloudinaryUploadWidget from "utils/uploadWidget.js";
 import { SEND } from 'store'
 // 
 export default () =>
@@ -204,33 +204,7 @@ export default () =>
                     </FormControl>
                     
                     <div>
-                        <Widget
-                            uploadPreset='public_api'
-                            sources= {['local', 'url']}
-                            cloudName='ddv2aeipa'
-                            cropping={false}
-                            onSuccess={(result, { widget }) => 
-                            {
-                                if(result&&result.event=='success'){
-                                    dispatch.models.SET({ 
-                                        image_uploaded: result.event, 
-                                        image_name: result.info.public_id + '.' + (result.info.original_extension || result.info.format),
-                                        isUploaded: true
-                                    })
-                                widget.close();
-                                }
-                            }}
-                        >
-                            {({ open }) => {
-                                return <LoadingButton 
-                                    disabled={isUploaded}
-                                    variant='contained' 
-                                    onClick={()=> open()}
-                                >
-                                    Upload an Image
-                                </LoadingButton>
-                            }}
-                        </Widget>
+                    <CloudinaryUploadWidget />
                     </div>
                     <div>
                         {image_uploaded&&image_uploaded=='success'&&<p>File uploaded successfully</p>}
